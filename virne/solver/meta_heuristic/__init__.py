@@ -4,6 +4,7 @@ from .particle_swarm_optimization_solver import ParticleSwarmOptimizationSolver
 from .meta_heuristic_solver import Individual, MetaHeuristicSolver, INFEASIBLE_FITNESS
 from .simulated_annealing_solver import SimulatedAnnealingSolver
 from .tabu_search_solver import TabuSearchSolver
+from .tabu_search_with_drop_set_solver import TabuSearchWithDropSetSolver
 
 
 __all__ = [
@@ -14,5 +15,6 @@ __all__ = [
     'MetaHeuristicSolver',
     'INFEASIBLE_FITNESS',
     'SimulatedAnnealingSolver',
-    'TabuSearchSolver'
+    'TabuSearchSolver',
+    'TabuSearchWithDropSetSolver'
 ]
