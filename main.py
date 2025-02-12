@@ -17,7 +17,7 @@ def run(config):
 
 if __name__ == '__main__':
     config = Config(
-        solver_name='tsds',
+        solver_name='tsa',
         # p_net_setting_path='customized_p_net_setting_file_path',
         # v_sim_setting_path='customized_v_sim_setting_file_path',
     )

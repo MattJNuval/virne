@@ -5,6 +5,7 @@ from .meta_heuristic_solver import Individual, MetaHeuristicSolver, INFEASIBLE_F
 from .simulated_annealing_solver import SimulatedAnnealingSolver
 from .tabu_search_solver import TabuSearchSolver
 from .tabu_search_with_drop_set_solver import TabuSearchWithDropSetSolver
+from .tabu_simulated_annealing_solver import TabuSimulatedAnnealingSolver
 
 
 __all__ = [
@@ -16,5 +17,6 @@ __all__ = [
     'INFEASIBLE_FITNESS',
     'SimulatedAnnealingSolver',
     'TabuSearchSolver',
-    'TabuSearchWithDropSetSolver'
+    'TabuSearchWithDropSetSolver',
+    'TabuSimulatedAnnealingSolver'
 ]
