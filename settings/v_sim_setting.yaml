@@ -1,12 +1,11 @@
 num_v_nets: 1000
 topology:
-  random_prob: 0.5
-  type: random
+  type: path
 v_net_size:
   distribution: uniform
   dtype: int
-  low: 8
-  high: 8
+  low: 2
+  high: 10
 arrival_rate:
   distribution: possion
   dtype: float
@@ -15,12 +14,7 @@ arrival_rate:
 lifetime:
   distribution: exponential
   dtype: float
-  scale: 500
-# lifetime:
-#   distribution: uniform
-#   dtype: float
-#   low: 0
-#   high: 0
+  scale: 1000
 # max_latency:
 #   distribution: uniform
 #   dtype: float
@@ -35,22 +29,22 @@ node_attrs_setting:
     high: 50
     owner: node
     type: resource
-  # - name: gpu
-  #   distribution: uniform
-  #   dtype: int
-  #   generative: true
-  #   low: 0
-  #   high: 50
-  #   owner: node
-  #   type: resource
-  # - name: ram
-    # distribution: uniform
-    # dtype: int
-    # generative: true
-    # low: 0
-    # high: 50
-    # owner: node
-    # type: resource
+  - name: gpu
+    distribution: uniform
+    dtype: int
+    generative: true
+    low: 0
+    high: 50
+    owner: node
+    type: resource
+  - name: rom
+    distribution: uniform
+    dtype: int
+    generative: true
+    low: 0
+    high: 50
+    owner: node
+    type: resource
 link_attrs_setting:
   - name: bw
     distribution: uniform
