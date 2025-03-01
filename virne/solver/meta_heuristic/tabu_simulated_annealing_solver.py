@@ -109,9 +109,10 @@ class TabuSimulatedAnnealingSolver(MetaHeuristicSolver):
                     else:
                         individual.solution = copy.deepcopy(individual.last_solution)
                 temperature *= self.attenuation_factor
-
-            if len(self.tabu_list) < self.tabu_length:
-                self.tabu_list.append(individual.last_solution)
-            else:
-                self.tabu_list.pop(0)    
+                # Update tabu list with new solution
+                if len(self.tabu_list) < self.tabu_length:
+                    self.tabu_list.append(individual.last_solution)
+                else:
+                    self.tabu_list.pop(0)
+                    self.tabu_list.append(individual.last_solution)
             iter_id += 1
