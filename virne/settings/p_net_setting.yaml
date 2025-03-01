@@ -18,6 +18,13 @@ link_attrs_setting:
     originator: bw
     owner: link
     type: extrema
+  # - name: ltc
+  #   owner: link
+  #   type: latency
+  #   generative: true
+  #   distribution: customized
+  #   max: 1.
+  #   min: 0.
 node_attrs_setting:
   - name: cpu
     distribution: uniform
@@ -31,29 +38,28 @@ node_attrs_setting:
     originator: cpu
     owner: node
     type: extrema
-  - name: gpu
-    distribution: uniform
-    dtype: int
-    generative: true
-    high: 100
-    low: 50
-    owner: node
-    type: resource
-  - name: max_gpu
-    originator: gpu
-    owner: node
-    type: extrema
-  - name: rom
-    distribution: uniform
-    dtype: int
-    generative: true
-    high: 100
-    low: 50
-    owner: node
-    type: resource
-  - name: max_rom
-    originator: rom
-    owner: node
-    type: extrema
-
+  # - name: gpu
+  #   distribution: uniform
+  #   dtype: int
+  #   generative: true
+  #   high: 100
+  #   low: 50
+  #   owner: node
+  #   type: resource
+  # - name: max_gpu
+  #   originator: gpu
+  #   owner: node
+  #   type: extrema
+  # - name: ram
+  #   distribution: uniform
+  #   dtype: int
+  #   generative: true
+  #   high: 100
+  #   low: 50
+  #   owner: node
+  #   type: resource
+  # - name: max_ram
+  #   originator: ram
+  #   owner: node
+  #   type: extrema
 file_name: p_net.gml
