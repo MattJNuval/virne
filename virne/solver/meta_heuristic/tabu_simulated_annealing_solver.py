@@ -97,21 +97,21 @@ class TabuSimulatedAnnealingSolver(MetaHeuristicSolver):
             last_fitness = individual.calc_fitness(individual.last_solution)
             curr_fitness = individual.calc_fitness(individual.solution)
             diff_fitness = curr_fitness - last_fitness
-            if diff_fitness < 0:
-                if individual.solution not in self.tabu_list:
+            if individual.solution not in self.tabu_list:
+                if diff_fitness < 0:
                     individual.last_solution = copy.deepcopy(individual.solution)
-                    individual.update_best_solution()
-                    if len(self.tabu_list) < self.tabu_length:
-                        self.tabu_list.append(individual.last_solution)
-                    else:
-                        self.tabu_list.pop(0)       
-            else:
-                # acceptance criterion
-                prob = np.exp(- diff_fitness / temperature)
-                if random.random() < prob:
-                    individual.last_solution = copy.deepcopy(individual.solution)
+                    individual.update_best_solution()   
                 else:
-                    individual.solution = copy.deepcopy(individual.last_solution)
-            
+                    # acceptance criterion
+                    prob = np.exp(- diff_fitness / temperature)
+                    if random.random() < prob:
+                        individual.last_solution = copy.deepcopy(individual.solution)
+                    else:
+                        individual.solution = copy.deepcopy(individual.last_solution)
+                temperature *= self.attenuation_factor
+
+            if len(self.tabu_list) < self.tabu_length:
+                self.tabu_list.append(individual.last_solution)
+            else:
+                self.tabu_list.pop(0)    
             iter_id += 1
-            temperature *= self.attenuation_factor
