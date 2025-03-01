@@ -94,10 +94,10 @@ class TabuSimulatedAnnealingSolver(MetaHeuristicSolver):
         individual.last_solution = copy.deepcopy(individual.solution)
         while iter_id < self.max_iteration:
             self.generate_neighor(individual)
-            last_fitness = individual.calc_fitness(individual.last_solution)
-            curr_fitness = individual.calc_fitness(individual.solution)
-            diff_fitness = curr_fitness - last_fitness
             if individual.solution not in self.tabu_list:
+                last_fitness = individual.calc_fitness(individual.last_solution)
+                curr_fitness = individual.calc_fitness(individual.solution)
+                diff_fitness = curr_fitness - last_fitness
                 if diff_fitness < 0:
                     individual.last_solution = copy.deepcopy(individual.solution)
                     individual.update_best_solution()   
