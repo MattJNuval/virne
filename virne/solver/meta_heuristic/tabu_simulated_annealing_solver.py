@@ -41,7 +41,7 @@ class TabuSimulatedAnnealingSolver(MetaHeuristicSolver):
         self.num_individuals: int = 10 
         self.max_iteration: int = 20 
         self.max_attempt_times: int = 1
-        self.tabu_length = 6
+        self.tabu_length = 3
         self.tabu_list = []
         self.initial_temperature: float = 2.
         self.attenuation_factor: float = 0.95
@@ -102,17 +102,19 @@ class TabuSimulatedAnnealingSolver(MetaHeuristicSolver):
                     individual.last_solution = copy.deepcopy(individual.solution)
                     individual.update_best_solution()
                     # Update tabu list with new solution
-                    if len(self.tabu_list) < self.tabu_length:
-                        self.tabu_list.append(individual.solution)
-                    else:
-                        self.tabu_list.pop(0)
-                        self.tabu_list.append(individual.solution)
+                    self.tabu_list.append(individual.last_solution)
+                if len(self.tabu_list) > self.tabu_length:
+                    self.tabu_list.pop(0)
             else:
                 # acceptance criterion
                 prob = np.exp(- diff_fitness / temperature)
-                if random.random() < prob:
-                    individual.last_solution = copy.deepcopy(individual.solution)
-                else:
-                    individual.solution = copy.deepcopy(individual.last_solution)
+                if individual.solution not in self.tabu_list:
+                    if random.random() < prob:
+                        individual.last_solution = copy.deepcopy(individual.solution)
+                    else:
+                        individual.solution = copy.deepcopy(individual.last_solution)
+                    self.tabu_list.append(individual.last_solution)
+                if len(self.tabu_list) > self.tabu_length:
+                    self.tabu_list.pop(0)
             temperature *= self.attenuation_factor
             iter_id += 1
