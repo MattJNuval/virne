@@ -94,25 +94,25 @@ class TabuSimulatedAnnealingSolver(MetaHeuristicSolver):
         individual.last_solution = copy.deepcopy(individual.solution)
         while iter_id < self.max_iteration:
             self.generate_neighor(individual)
-            if individual.solution not in self.tabu_list:
-                last_fitness = individual.calc_fitness(individual.last_solution)
-                curr_fitness = individual.calc_fitness(individual.solution)
-                diff_fitness = curr_fitness - last_fitness
-                if diff_fitness < 0:
+            last_fitness = individual.calc_fitness(individual.last_solution)
+            curr_fitness = individual.calc_fitness(individual.solution)
+            diff_fitness = curr_fitness - last_fitness
+            if diff_fitness < 0:
+                if individual.solution not in self.tabu_list:
                     individual.last_solution = copy.deepcopy(individual.solution)
-                    individual.update_best_solution()   
-                else:
-                    # acceptance criterion
-                    prob = np.exp(- diff_fitness / temperature)
-                    if random.random() < prob:
-                        individual.last_solution = copy.deepcopy(individual.solution)
+                    individual.update_best_solution()
+                    # Update tabu list with new solution
+                    if len(self.tabu_list) < self.tabu_length:
+                        self.tabu_list.append(individual.solution)
                     else:
-                        individual.solution = copy.deepcopy(individual.last_solution)
-                temperature *= self.attenuation_factor
-                # Update tabu list with new solution
-                if len(self.tabu_list) < self.tabu_length:
-                    self.tabu_list.append(individual.solution)
+                        self.tabu_list.pop(0)
+                        self.tabu_list.append(individual.solution)
+            else:
+                # acceptance criterion
+                prob = np.exp(- diff_fitness / temperature)
+                if random.random() < prob:
+                    individual.last_solution = copy.deepcopy(individual.solution)
                 else:
-                    self.tabu_list.pop(0)
-                    self.tabu_list.append(individual.solution)
+                    individual.solution = copy.deepcopy(individual.last_solution)
+            temperature *= self.attenuation_factor
             iter_id += 1
